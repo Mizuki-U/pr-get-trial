@@ -1,0 +1,17 @@
+version: "3"
+services:
+  master:
+    container_name: master
+    image: jenkins/jenkins:slim
+    ports:
+      - 8080:8080
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+    links:
+      - slave01
+
+  slave01:
+    container_name: slave01
+    image: jenkins/ssh-slave
+    environment:
+      - JENKINS_SLAVE_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMD5ndTi0U84ofDuDMkqG5kuaaJxNlCv9FprBguPRrR15EbrzdmxEVwSdu/je66HgUUoYtph5tyDCPOvQXY4SqG/7jrjdQD4vGmHXJFg0j3ULer8S/rgCNQDac550V+5LPYG+8+glKkZI63WIu3X5LTc6uX6NzeOgTajKR5YINUuRSSleQAwBft96psazXS9axcjkJZPeTmtt9HExnqG4mBYlKR8sycJ/5K6rcXSyoOz2ehl3jp24Thm3H7ozYZ0Z9mJFY+s0uJVOlEZyQOgXcLWHePXgWhlLVuUjAe4K0vnBF39cnewuOlK7gaXAUr+sSI54KQXx+YNHh6yuTleDZyegd7USR48vgysz0GUbp3cC6YfHpCFzkJOKtwWFCbr8mQpaGchWZrcHMueqsF/E9nM+TFzfa/T6EpYxJ43CmDoPGcn5ph92ro5ZPfqpn5utI/Og1naiaioYAxWkl/vrskr4f6J4uvo2qltOyJ8QeLACR/0ZFx0b30CfpobrTcX8= 
