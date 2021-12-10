@@ -1,7 +1,11 @@
-FROM golang:1.9
+FROM ubuntu:16.04
 
-RUN mkdir /echo/
-COPY main.go /echo
+RUN apt update
+RUN apt install -y cron
+RUN apt install -y vim
 
-CMD ["go", "run", "/echo/main.go"]
+COPY task.sh /usr/local/bin/
+COPY cron-example /etc/cron.d/
+RUN chmod 0644 /etc/cron.d/cron-example
 
+CMD ["cron","-f"]
